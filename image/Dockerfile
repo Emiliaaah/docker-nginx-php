@@ -29,4 +29,4 @@ RUN adduser www-data -D -H
 EXPOSE 80
 
 # run nginx and php in supervisord
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
