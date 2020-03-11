@@ -26,7 +26,7 @@ docker run -it --rm -e "NGINX=$version" -v "$basedir"/artifacts:/build alpine:la
 cp "$basedir"/artifacts/nginx-"$version" "$basedir"/image/nginx
 
 # create docker run image
-docker build --build-arg version="$version" -t docker.seedno.de/seednode/nginx:"$version" "$basedir"/image/.
+docker build --build-arg version="$version" -t docker.seedno.de/seednode/nginx-php:"$version" "$basedir"/image/.
 
 # remove nginx binary from image build directory
 rm "$basedir"/image/nginx
@@ -35,4 +35,4 @@ rm "$basedir"/image/nginx
 pass show docker-credential-helpers/docker-pass-initialized-check && docker login docker.seedno.de
 
 # push the image to registry
-docker push docker.seedno.de/seednode/nginx:"$version"
+docker push docker.seedno.de/seednode/nginx-php:"$version"
