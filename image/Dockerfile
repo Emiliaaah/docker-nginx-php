@@ -5,7 +5,7 @@ FROM alpine:latest
 ARG version
 
 # install php and supervisor
-RUN apk --no-cache add pcre-dev supervisor php7 php7-fpm
+RUN apk --no-cache add pcre supervisor php7 php7-fpm
 
 # configure php-fpm
 COPY fpm-pool.conf /etc/php7/php-fpm.d/www.conf
