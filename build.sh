@@ -19,11 +19,8 @@ version="$1"
 # set current directory as base directory
 basedir="$(pwd)"
 
-# create docker build image
-docker build -t nginx-build:"$version" "$basedir"/build/.
-
 # build docker and copy build artifacts to volume mount
-docker run -it --rm -v "$basedir"/artifacts:/build nginx-build:"$version" /bin/ash -c "/build-nginx-docker.sh $version"
+docker run -it --rm -e "NGINX=$version" -v "$basedir"/artifacts:/build alpine:latest /bin/ash -c "`cat ./build-nginx-docker.sh`"
 
 # copy nginx binary to run image build directory
 cp "$basedir"/artifacts/nginx-"$version" "$basedir"/run/nginx
@@ -31,8 +28,8 @@ cp "$basedir"/artifacts/nginx-"$version" "$basedir"/run/nginx
 # create docker run image
 docker build --build-arg version="$version" -t docker.seedno.de/seednode/nginx:"$version" "$basedir"/run/.
 
-# log into my private docker registry
-docker-login
+# log in to my docker registry
+pass show docker-credential-helpers/docker-pass-initialized-check && docker login docker.seedno.de
 
-# push the image as both tag names
-docker push docker.seedno.de/seednode/nginx-rtmp:"$version"
+# push the image to the registry
+docker push docker.seedno.de/seednode/nginx:"$version"
