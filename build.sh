@@ -28,6 +28,9 @@ cp "$basedir"/artifacts/nginx-"$version" "$basedir"/run/nginx
 # create docker run image
 docker build --build-arg version="$version" -t docker.seedno.de/seednode/nginx:"$version" "$basedir"/run/.
 
+# remove nginx binary from run image build directory
+rm "$basedir"/artifacts/nginx-"$version"
+
 # log in to my docker registry
 pass show docker-credential-helpers/docker-pass-initialized-check && docker login docker.seedno.de
 
