@@ -23,10 +23,10 @@ basedir="$(pwd)"
 docker run -it --rm -e "NGINX=$version" -v "$basedir"/artifacts:/build alpine:latest /bin/ash -c "`cat ./build-nginx-docker.sh`"
 
 # copy nginx binary to image build directory
-cp "$basedir"/artifacts/nginx-"$version" "$basedir"/run/nginx
+cp "$basedir"/artifacts/nginx-"$version" "$basedir"/image/nginx
 
 # create docker run image
-docker build --build-arg version="$version" -t docker.seedno.de/seednode/nginx:"$version" "$basedir"/run/.
+docker build --build-arg version="$version" -t docker.seedno.de/seednode/nginx:"$version" "$basedir"/image/.
 
 # remove nginx binary from image build directory
 rm "$basedir"/artifacts/nginx-"$version"
