@@ -73,7 +73,7 @@ git clone https://github.com/aperezdc/ngx-fancyindex.git "$BUILDROOT"/ngx-fancyi
 	--without-mail_pop3_module \
 	--without-mail_imap_module \
 	--without-mail_smtp_module \
-	--with-cc-opt="-Wl,--gc-sections -static -static-libgcc -g -O2 -fPIE -fstack-protector-all -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security"
+	--with-cc-opt="-Wl,--gc-sections -static -static-libgcc -g -O2 -ffunction-sections -fdata-sections -fPIE -fstack-protector-all -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security"
 
 # build nginx
 make -j"$core_count"
