@@ -59,6 +59,9 @@ RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html
 RUN touch /run/nginx.pid && chown www-data:www-data /run/nginx.pid
 RUN mkdir -p /etc/nginx
 
+# add nginx binary
+COPY --from=nginx /usr/sbin/nginx /usr/sbin/nginx
+
 # add php
 RUN apk --no-cache add supervisor php7 php7-fpm
 
@@ -67,6 +70,5 @@ COPY fpm-pool.conf /etc/php7/php-fpm.d/www.conf
 COPY php.ini /etc/php7/conf.d/custom.ini
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# add nginx binaries and confs
-COPY --from=nginx /usr/sbin/nginx /usr/sbin/nginx
+# configure entrypoint
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
