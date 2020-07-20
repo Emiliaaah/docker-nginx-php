@@ -38,7 +38,6 @@ RUN ./configure --prefix=/usr/share/nginx \
         --with-pcre-jit \
         --with-http_addition_module \
         --add-module=/src/ngx-fancyindex \
-        --without-http_fastcgi_module \
         --without-http_uwsgi_module \
         --without-http_scgi_module \
         --without-http_gzip_module \
