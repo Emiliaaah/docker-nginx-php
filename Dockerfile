@@ -71,7 +71,7 @@ RUN mkdir -p /etc/nginx
 COPY --from=nginx /usr/sbin/nginx /usr/sbin/nginx
 
 # add php
-RUN apk --no-cache add supervisor php7 php7-fpm
+RUN apk --no-cache add supervisor php7 php7-fpm php7-zip php7-curl php7-json php7-session php7-gd php7-xml php7-mysqli php7-openssl php7-iconv php7-mbstring php7-exif
 
 # add php configs
 COPY fpm-pool.conf /etc/php7/php-fpm.d/www.conf
