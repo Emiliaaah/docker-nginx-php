@@ -21,17 +21,16 @@ core_count="$(grep -c ^processor /proc/cpuinfo)"
 
 # if no arguments are passed, display usage info and exit
 if [ "$#" -ne 1 ]; then
-        echo "No nginx version provided. Falling back to mainline version $nginx_version."
+  echo "No nginx version provided. Falling back to mainline version $nginx_version."
 fi
 
 # create docker image
-docker build \
-        --build-arg NGINX_VER="$nginx_version" \
-        --build-arg CORE_COUNT="$core_count" \
-        -t "$registry"/nginx-php:"$nginx_version" \
-        -f Dockerfile .
+docker build --build-arg NGINX_VER="$nginx_version" \
+             --build-arg CORE_COUNT="$core_count" \
+             -t "$registry"/nginx-php:"$nginx_version" \
+             -f Dockerfile .
 
 # if a registry is specified, push to it
 if [ "$registry" != "local" ]; then
-        docker push "$registry"/nginx-php:"$nginx_version"
+  docker push "$registry"/nginx-php:"$nginx_version"
 fi
